@@ -42,20 +42,6 @@ $db_name = "UsersInfo";
 //Etablissement de la connexion à la BDD
 $conn =  mysqli_connect( "localhost", $user, $pass, $db_name);
 if ( ! $conn ){
-    die( "Impossible de se connecter à MySQL" );
+    die( "Impossible de se connecter à MySQL" . mysqli_connect_error() );
 }
-mysqli_select_db($conn, $db_name) or die ("Impossible d'ouvrir $db_name: ".mysqli_error($conn));
-
-
-//Définition des variables pour stocker les valeurs de POST
-$date_bil = $_POST['date_bil'];
-
-$titre_bil = $_POST['titre_bil'];
-
-$date_com = $_POST['date_com'];
-
-$auteur_com = $_POST['auteur_com'];
-
-//Préparation de la requête par soucis de sécurité
-
 ?>

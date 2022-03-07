@@ -6,18 +6,32 @@ if (isset($_POST['Submit'])){
     $Pwd = $_POST['Pwd'];
 
     require_once 'functions.inc.php';
+    require_once 'db.inc.php';
+    require_once 'classes.php';
+
+    $Modo = new Modérateur();
+    $Modo->setUsername($ID);
+    $Modo->setPassword($Pwd);
 
     if (emptyInput($ID, $Pwd) !== false){
-        header("Location: http://localhost/TP%20Billet%20PHP/home.html?error=Empty");
+        header("Location: http://localhost/TP%20Billet%20PHP/home.php?error=emptyinput");
 		exit();
     }
 
-    //if (login($ID, $Pwd) !== false)
+    if (!loginCheck($conn, $Modo) !== false){
+        header("Location: http://localhost/TP%20Billet%20PHP/home.php?error=badcredentials");
+        exit();
+    }
 
-    connected();
+    session_start();
+    $_SESSION["ID"] = $ID;
+    header('Location: http://localhost/TP%20Billet%20PHP/connected.php?error=none');
+    exit();
+    //return $ID;
 }
 
-else{
+
+else {
     header("Location: http://localhost/TP%20Billet%20PHP/home.php?error=WrongEntry");
     exit();
 }
